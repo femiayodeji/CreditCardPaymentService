@@ -37,3 +37,9 @@ C:\workspace\c#\FiledCom\obj\Debug\netcoreapp3.1\staticwebassets\FiledCom.Static
 C:\workspace\c#\FiledCom\obj\Debug\netcoreapp3.1\FiledCom.dll
 C:\workspace\c#\FiledCom\obj\Debug\netcoreapp3.1\FiledCom.pdb
 C:\workspace\c#\FiledCom\obj\Debug\netcoreapp3.1\FiledCom.genruntimeconfig.cache
+C:\workspace\c#\FiledCom\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\workspace\c#\FiledCom\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\workspace\c#\FiledCom\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\workspace\c#\FiledCom\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\workspace\c#\FiledCom\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\workspace\c#\FiledCom\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
