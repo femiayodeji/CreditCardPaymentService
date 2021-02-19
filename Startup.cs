@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FiledCom.Data;
+using FiledCom.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,7 +28,12 @@ namespace FiledCom
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<PaymentContext>(opt => {
+                opt.UseInMemoryDatabase("PaymentDB");
+            });
             services.AddControllers();
+            services.AddScoped<IPaymentRepo, InMemoryPaymentRepo>();
+            services.AddScoped<IPaymentService, PaymentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
