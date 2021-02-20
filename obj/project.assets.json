@@ -1089,7 +1089,7 @@
       "Microsoft.EntityFrameworkCore >= 5.0.3",
       "Microsoft.EntityFrameworkCore.Design >= 5.0.3",
       "Microsoft.EntityFrameworkCore.InMemory >= 5.0.3",
-      "Microsoft.EntityFrameworkCore.Relational >= *"
+      "Microsoft.EntityFrameworkCore.Relational >= 5.0.3"
     ]
   },
   "packageFolders": {
@@ -1164,7 +1164,7 @@
           },
           "Microsoft.EntityFrameworkCore.Relational": {
             "target": "Package",
-            "version": "[*, )"
+            "version": "[5.0.3, )"
           }
         },
         "imports": [
