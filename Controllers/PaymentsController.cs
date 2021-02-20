@@ -19,8 +19,8 @@ namespace Controllers
             _mapper = mapper;
         }
 
-        //POST api/Payments
-        [HttpPost]
+        //POST api/payments/process
+        [HttpPost("Process")]
         public ActionResult <PaymentResponseDto> ProcessPayment(PaymentDto request){
             if(!ModelState.IsValid){
                 return BadRequest(ModelState);
