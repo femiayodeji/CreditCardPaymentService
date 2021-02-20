@@ -33,7 +33,7 @@ namespace FiledCom.Services
             {
                 paymentResponse = _cheapPaymentGateway.Charge(payment);
             }
-            else if(payment.Amount >= Constants.CheapAmountUpperBound || payment.Amount <= Constants.ExpensiveAmountUpperBound)
+            else if(payment.Amount >= Constants.CheapAmountUpperBound && payment.Amount <= Constants.ExpensiveAmountUpperBound)
             {
                 paymentResponse = _expensivePaymentGateway.Charge(payment);
                 if (paymentResponse.Type != PaymentStateTypes.Processed)
@@ -50,7 +50,7 @@ namespace FiledCom.Services
                     count++;
                 }
                 while(
-                    count != Constants.PremiumPaymentServiceCount && 
+                    count < Constants.PremiumPaymentServiceCount && 
                     paymentResponse.Type != PaymentStateTypes.Processed
                 );
             }
