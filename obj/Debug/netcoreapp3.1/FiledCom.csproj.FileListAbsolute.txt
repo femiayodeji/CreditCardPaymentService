@@ -43,3 +43,7 @@ C:\workspace\c#\FiledCom\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.
 C:\workspace\c#\FiledCom\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\workspace\c#\FiledCom\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 C:\workspace\c#\FiledCom\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\workspace\c#\FiledCom\obj\Debug\netcoreapp3.1\FiledCom.MvcApplicationPartsAssemblyInfo.cs
+C:\workspace\c#\FiledCom\bin\Debug\netcoreapp3.1\FluentValidation.dll
+C:\workspace\c#\FiledCom\bin\Debug\netcoreapp3.1\FluentValidation.AspNetCore.dll
+C:\workspace\c#\FiledCom\bin\Debug\netcoreapp3.1\FluentValidation.DependencyInjectionExtensions.dll

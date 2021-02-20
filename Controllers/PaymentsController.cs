@@ -2,6 +2,8 @@ using AutoMapper;
 using FiledCom.Dtos;
 using FiledCom.Models;
 using FiledCom.Services;
+using FiledCom.Validations;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Controllers
@@ -22,8 +24,8 @@ namespace Controllers
         //POST api/Payments
         [HttpPost]
         public ActionResult <Payment> ProcessPayment(PaymentDto request){
-            if(request == null){
-                return BadRequest();
+            if(!ModelState.IsValid){
+                return BadRequest(ModelState);
             }
             var paymentModel = _mapper.Map<Payment>(request);
             _PaymentService.ProcessPayment(paymentModel);

@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FiledCom.Data;
+using FiledCom.Dtos;
 using FiledCom.Services;
+using FiledCom.Validations;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +40,10 @@ namespace FiledCom
             {
                 s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
+
+            services.AddMvc(setup => {
+            }).AddFluentValidation();
+            services.AddTransient<IValidator<PaymentDto>, PaymentValidator>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IPaymentRepo, InMemoryPaymentRepo>();
