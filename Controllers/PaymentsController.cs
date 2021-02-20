@@ -2,8 +2,6 @@ using AutoMapper;
 using FiledCom.Dtos;
 using FiledCom.Models;
 using FiledCom.Services;
-using FiledCom.Validations;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Controllers

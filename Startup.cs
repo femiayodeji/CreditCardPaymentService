@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FiledCom.Data;
 using FiledCom.Dtos;
+using FiledCom.ExternalServices;
 using FiledCom.Services;
 using FiledCom.Validations;
 using FluentValidation;
@@ -48,6 +49,9 @@ namespace FiledCom
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IPaymentRepo, InMemoryPaymentRepo>();
             services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<ICheapPaymentGateway, CheapPaymentGateway>();
+            services.AddScoped<IExpensivePaymentGateway, ExpensivePaymentGateway>();
+            services.AddScoped<IPaymentGateway, PremiumPaymentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

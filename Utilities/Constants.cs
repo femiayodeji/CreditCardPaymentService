@@ -7,6 +7,10 @@ namespace FiledCom.Utilities
         public const int MinInt = 0;
         public const int MinCreditCardNumberLength = 12;
         public const int MaxCreditCardNumberLength = 16;
+        public const int CheapAmountUpperBound = 20;
+        public const int ExpensiveAmountUpperBound = 500;
+        public const int PremiumPaymentServiceCount = 3;
+
         public static class ErrorMessages
         {
             public const string RequiredCreditCardNumber = "Credit Card Number is required";
