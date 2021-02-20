@@ -10,12 +10,12 @@ namespace Controllers
     [ApiController]
     public class PaymentsController : ControllerBase
     {
-        private readonly IPaymentService _PaymentService;
+        private readonly IPaymentService _paymentService;
         private IMapper _mapper;
 
-        public PaymentsController(IPaymentService PaymentService, IMapper mapper)
+        public PaymentsController(IPaymentService paymentService, IMapper mapper)
         {
-            _PaymentService = PaymentService;
+            _paymentService = paymentService;
             _mapper = mapper;
         }
 
@@ -26,8 +26,8 @@ namespace Controllers
                 return BadRequest(ModelState);
             }
             var paymentModel = _mapper.Map<Payment>(request);
-            _PaymentService.ProcessPayment(paymentModel);
-            return Ok(request);
+            var response = _paymentService.ProcessPayment(paymentModel);
+            return Ok(response);
         }        
     }
 }
