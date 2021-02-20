@@ -11,18 +11,18 @@ namespace FiledCom.Services
         private readonly IPaymentRepo _repository;
         private readonly ICheapPaymentGateway _cheapPaymentGateway;
         private readonly IExpensivePaymentGateway _expensivePaymentGateway;
-        private readonly IPaymentGateway _premiumPaymentGateway;
+        private readonly IPaymentGateway _premiumPaymentService;
         public PaymentService(
             IPaymentRepo repository, 
             ICheapPaymentGateway cheapPaymentGateway,
             IExpensivePaymentGateway expensivePaymentGateway,
-            IPaymentGateway premiumPaymentGateway
+            IPaymentGateway premiumPaymentService
             )
         {
             _repository = repository;
             _cheapPaymentGateway = cheapPaymentGateway;
             _expensivePaymentGateway = expensivePaymentGateway;
-            _premiumPaymentGateway = premiumPaymentGateway;
+            _premiumPaymentService = premiumPaymentService;
         }
 
         public Payment ProcessPayment(Payment payment)
@@ -46,7 +46,7 @@ namespace FiledCom.Services
                 int count = 0;
                 do 
                 {
-                    paymentResponse = _premiumPaymentGateway.Charge(payment);
+                    paymentResponse = _premiumPaymentService.Charge(payment);
                     count++;
                 }
                 while(
