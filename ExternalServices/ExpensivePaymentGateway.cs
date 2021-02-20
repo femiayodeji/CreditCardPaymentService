@@ -15,11 +15,9 @@ namespace FiledCom.Services
 
         public PaymentState Charge(Payment payment)
         {
-            PaymentState paymentState = new PaymentState();
-            paymentState.PaymentId = payment.Id;
-            paymentState.Type = PaymentStateTypes.Pending;
-            _repository.CreatePaymentState(paymentState);
-            return paymentState;
+            var paymentResponse = FakePaymentResponse.RandomizePaymentReponse(payment);
+            _repository.CreatePaymentState(paymentResponse);
+            return paymentResponse;
         }
    }
 }
