@@ -11,6 +11,6 @@ namespace FiledCom.Models
         public DateTime  ExpirationDate { get; set; }
         public string  SecurityCode { get; set; }
         public decimal  Amount { get; set; }
-        public virtual ICollection<Payment>  PaymentStates { get; set; }
+        public virtual ICollection<PaymentState>  PaymentStates { get; set; }
     }
 }
