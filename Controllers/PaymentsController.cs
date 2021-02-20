@@ -21,12 +21,12 @@ namespace Controllers
 
         //POST api/Payments
         [HttpPost]
-        public ActionResult <Payment> ProcessPayment(PaymentDto request){
+        public ActionResult <PaymentResponseDto> ProcessPayment(PaymentDto request){
             if(!ModelState.IsValid){
                 return BadRequest(ModelState);
             }
             var paymentModel = _mapper.Map<Payment>(request);
-            var response = _paymentService.ProcessPayment(paymentModel);
+            var response = _mapper.Map<PaymentResponseDto>(_paymentService.ProcessPayment(paymentModel));
             return Ok(response);
         }        
     }

@@ -9,6 +9,9 @@ namespace FiledCom.Mapping
         public PaymentAutoMapperConfigurator()
         {
             CreateMap<PaymentDto, Payment>();
+            CreateMap<PaymentState, PaymentStateDto>();
+            CreateMap<Payment, PaymentResponseDto>()
+                .ForMember(x => x.States, options => options.MapFrom(s => s.PaymentStates));
         }
     }
 }
