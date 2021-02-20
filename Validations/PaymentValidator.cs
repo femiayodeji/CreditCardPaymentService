@@ -2,7 +2,6 @@ using FiledCom.Dtos;
 using FluentValidation;
 using FiledCom.Utilities;
 using System;
-using System.Text.RegularExpressions;
 using System.Text;
 using System.Linq;
 
@@ -33,24 +32,24 @@ namespace FiledCom.Validations
     }
 
     public bool IsCreditCardNumberValid(string creditCardNumber)
-        {
-            creditCardNumber = NormalizeCreditCardNumber(creditCardNumber);
-            if (
-              creditCardNumber.Length >= Constants.MinCreditCardNumberLength &&
-              creditCardNumber.Length <= Constants.MaxCreditCardNumberLength
-              )
-            {
-                int sumOfDigits = creditCardNumber
-                  .Reverse()
-                  .Select((e, i) => ((int)e - 48) * (i % 2 == 0 ? 1 : 2))
-                  .Sum((e) => e / 10 + e % 10);
+    {
+      creditCardNumber = NormalizeCreditCardNumber(creditCardNumber);
+      if (
+        creditCardNumber.Length >= Constants.MinCreditCardNumberLength &&
+        creditCardNumber.Length <= Constants.MaxCreditCardNumberLength
+        )
+      {
+          int sumOfDigits = creditCardNumber
+            .Reverse()
+            .Select((e, i) => ((int)e - 48) * (i % 2 == 0 ? 1 : 2))
+            .Sum((e) => e / 10 + e % 10);
 
-                return sumOfDigits % 10 == 0;
-            }
-            return false;
-        }
+          return sumOfDigits % 10 == 0;
+      }
+      return false;
+    }
 
-        private string NormalizeCreditCardNumber(string creditCardNumber)
+    private string NormalizeCreditCardNumber(string creditCardNumber)
     {
       if (creditCardNumber == null)
         creditCardNumber = String.Empty;
