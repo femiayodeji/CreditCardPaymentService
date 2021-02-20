@@ -5,6 +5,21 @@
 
 # User-specific files
 *.rsuser
+=======
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
+nupkg/
+
+# Visual Studio Code
+.vscode
+
+# Rider
+.idea
+
+# User-specific files
 *.suo
 *.user
 *.userosscache
@@ -16,6 +31,7 @@
 # Mono auto generated files
 mono_crash.*
 
+=======
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -348,3 +364,15 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+=======
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# Visual Studio 2015
+.vs/
