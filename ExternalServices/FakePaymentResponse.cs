@@ -11,10 +11,10 @@ namespace FiledCom.ExternalServices
             PaymentState paymentState = new PaymentState();
             paymentState.PaymentId = payment.Id;
 
-            var paymentStateTypes = Enum.GetValues(typeof(PaymentStateTypes));
+            var paymentStatusTypes = Enum.GetValues(typeof(PaymentStatusTypes));
             Random random = new Random();
-            PaymentStateTypes randomStateType = (PaymentStateTypes)paymentStateTypes.GetValue(random.Next(paymentStateTypes.Length));
-            paymentState.Type = randomStateType;
+            PaymentStatusTypes randomStatus = (PaymentStatusTypes)paymentStatusTypes.GetValue(random.Next(paymentStatusTypes.Length));
+            paymentState.Status = randomStatus;
 
             return paymentState;
         }

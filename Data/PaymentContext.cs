@@ -63,7 +63,7 @@ namespace FiledCom.Data
                 .HasForeignKey(s => s.PaymentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Property(e => e.Type)
+            builder.Property(e => e.Status)
                 .IsRequired();
 
        }

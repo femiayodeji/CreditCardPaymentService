@@ -7,6 +7,6 @@ namespace FiledCom.Models
         public int Id { get; set; }
         public int PaymentId { get; set; }
         public virtual Payment Payment { get; set; }
-        public PaymentStateTypes Type { get; set; }
+        public PaymentStatusTypes Status { get; set; }
     }
 }

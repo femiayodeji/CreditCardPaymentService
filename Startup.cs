@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FiledCom.Data;
 using FiledCom.Dtos;
 using FiledCom.ExternalServices;
@@ -11,13 +8,10 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 
 namespace FiledCom
@@ -34,9 +28,15 @@ namespace FiledCom
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PaymentContext>(opt => {
-                opt.UseInMemoryDatabase("PaymentDB");
+            // services.AddDbContext<PaymentContext>(opt => {
+            //     opt.UseInMemoryDatabase("FiledComDB");
+            // });
+
+            services.AddDbContext<PaymentContext>(opt =>
+            {
+                opt.UseSqlServer(Configuration.GetConnectionString("FiledComConnection"));
             });
+
             services.AddControllers().AddNewtonsoftJson(s => 
             {
                 s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
@@ -48,7 +48,9 @@ namespace FiledCom
             services.AddTransient<IValidator<PaymentDto>, PaymentValidator>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddScoped<IPaymentRepo, InMemoryPaymentRepo>();
+            
+            // services.AddScoped<IPaymentRepo, InMemoryPaymentRepo>();
+            services.AddScoped<IPaymentRepo, SqlPaymentRepo>();
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<ICheapPaymentGateway, CheapPaymentGateway>();
             services.AddScoped<IExpensivePaymentGateway, ExpensivePaymentGateway>();

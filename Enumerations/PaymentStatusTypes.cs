@@ -1,6 +1,6 @@
 namespace FiledCom.Enumerations
 {
-    public enum PaymentStateTypes
+    public enum PaymentStatusTypes
     {
         Pending = 1, 
         Processed = 2, 
