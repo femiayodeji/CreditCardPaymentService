@@ -44,19 +44,15 @@ namespace FiledCom.Services
             else if(payment.Amount > Constants.ExpensiveAmountUpperBound)
             {
                 int count = 0;
-                paymentResponse = _expensivePaymentGateway.Charge(payment);
-                if (paymentResponse.Type != PaymentStateTypes.Processed)
-                {
-                    paymentResponse = _cheapPaymentGateway.Charge(payment);
-                }                
-                while(
-                    count != Constants.PremiumPaymentServiceCount && 
-                    paymentResponse.Type != PaymentStateTypes.Processed
-                    )
+                do 
                 {
                     paymentResponse = _premiumPaymentGateway.Charge(payment);
                     count++;
                 }
+                while(
+                    count != Constants.PremiumPaymentServiceCount && 
+                    paymentResponse.Type != PaymentStateTypes.Processed
+                );
             }
             return payment;            
         }
