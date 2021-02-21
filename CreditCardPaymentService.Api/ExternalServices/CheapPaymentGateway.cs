@@ -19,5 +19,10 @@ namespace CreditCardPaymentService.Api.Services
             _repository.CreatePaymentState(paymentResponse);
             return paymentResponse;
         }
+
+        public PaymentGatewayResponse Response()
+        {
+            return new PaymentGatewayResponse();
+        }
    }
 }
