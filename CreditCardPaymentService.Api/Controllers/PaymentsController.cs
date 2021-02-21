@@ -1,7 +1,10 @@
+using System.Linq;
 using AutoMapper;
 using CreditCardPaymentService.Api.Dtos;
+using CreditCardPaymentService.Api.Enumerations;
 using CreditCardPaymentService.Api.Models;
 using CreditCardPaymentService.Api.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Controllers
@@ -27,7 +30,9 @@ namespace Controllers
             }
             var paymentModel = _mapper.Map<Payment>(request);
             var response = _mapper.Map<PaymentResponseDto>(_paymentService.ProcessPayment(paymentModel));
-            return Ok(response);
+            if (response.State != null)
+                return Ok(response);
+            return StatusCode(StatusCodes.Status500InternalServerError, "Payment was not successfully Processed");                
         }        
     }
 }

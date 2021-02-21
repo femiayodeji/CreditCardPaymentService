@@ -28,14 +28,14 @@ namespace CreditCardPaymentService.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // services.AddDbContext<PaymentContext>(opt => {
-            //     opt.UseInMemoryDatabase("FiledComDB");
-            // });
-
-            services.AddDbContext<PaymentContext>(opt =>
-            {
-                opt.UseSqlServer(Configuration.GetConnectionString("FiledComConnection"));
+            services.AddDbContext<PaymentContext>(opt => {
+                opt.UseInMemoryDatabase("FiledComDB");
             });
+
+            // services.AddDbContext<PaymentContext>(opt =>
+            // {
+            //     opt.UseSqlServer(Configuration.GetConnectionString("FiledComConnection"));
+            // });
 
             services.AddControllers().AddNewtonsoftJson(s => 
             {
@@ -49,8 +49,8 @@ namespace CreditCardPaymentService.Api
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             
-            // services.AddScoped<IPaymentRepo, InMemoryPaymentRepo>();
-            services.AddScoped<IPaymentRepo, SqlPaymentRepo>();
+            services.AddScoped<IPaymentRepo, InMemoryPaymentRepo>();
+            // services.AddScoped<IPaymentRepo, SqlPaymentRepo>();
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<ICheapPaymentGateway, CheapPaymentGateway>();
             services.AddScoped<IExpensivePaymentGateway, ExpensivePaymentGateway>();

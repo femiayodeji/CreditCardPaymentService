@@ -22,8 +22,11 @@ namespace CreditCardPaymentService.Api.Validations
         .NotNull().WithMessage(Constants.ErrorMessages.InvalidExpirationDate)
         .Must(x => x > DateTime.UtcNow).WithMessage(Constants.ErrorMessages.ExpiredCreditCard);
 
-      RuleFor(x => x.SecurityCode)
-        .Must(x => x != null || x.Length == 3).WithMessage(Constants.ErrorMessages.InvalidSecurityCode);
+      When(x => !string.IsNullOrEmpty(x.SecurityCode), () => 
+      {
+        RuleFor(x => x.SecurityCode)
+        .Must(x => x.Length == 3).WithMessage(Constants.ErrorMessages.InvalidSecurityCode);
+      });
 
       RuleFor(x => x.Amount)
         .NotNull()

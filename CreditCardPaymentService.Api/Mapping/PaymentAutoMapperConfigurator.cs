@@ -1,5 +1,7 @@
+using System.Linq;
 using AutoMapper;
 using CreditCardPaymentService.Api.Dtos;
+using CreditCardPaymentService.Api.Enumerations;
 using CreditCardPaymentService.Api.Models;
 
 namespace CreditCardPaymentService.Api.Mapping
@@ -11,7 +13,8 @@ namespace CreditCardPaymentService.Api.Mapping
             CreateMap<PaymentDto, Payment>();
             CreateMap<PaymentState, PaymentStateDto>();
             CreateMap<Payment, PaymentResponseDto>()
-                .ForMember(x => x.States, options => options.MapFrom(s => s.PaymentStates));
+                .ForMember(x => x.State, options => options
+                    .MapFrom(s => s.PaymentStates.FirstOrDefault(t => t.Status == PaymentStatusTypes.Processed)));
         }
     }
 }

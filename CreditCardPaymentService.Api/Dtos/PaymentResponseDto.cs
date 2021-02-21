@@ -6,6 +6,6 @@ namespace CreditCardPaymentService.Api.Dtos
     public class PaymentResponseDto : PaymentDto
     {
         public int Id { get; set; }
-        public virtual List<PaymentStateDto>  States { get; set; }
+        public PaymentStateDto State { get; set; }
     }
 }
