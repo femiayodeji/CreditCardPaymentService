@@ -10,6 +10,7 @@ using CreditCardPaymentService.Api.ExternalServices;
 using CreditCardPaymentService.Api.Mapping;
 using System.Net;
 using CreditCardPaymentService.Api.Models;
+using CreditCardPaymentService.Api.Enumerations;
 
 namespace CreditCardPaymentService.Api.Test
 {
@@ -22,7 +23,9 @@ namespace CreditCardPaymentService.Api.Test
         private ICheapPaymentGateway _cheapPaymentGateway;
         private IExpensivePaymentGateway _expensivePaymentGateway;
         private IPaymentGateway _premiumPaymentService;
-        
+
+        private PaymentDto _creditCardPayment;
+
         [SetUp]
         public void Setup()
         {
@@ -31,10 +34,10 @@ namespace CreditCardPaymentService.Api.Test
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile(profile));
             _mapper = new Mapper(configuration);
 
-            _cheapPaymentGateway = new CheapPaymentGateway(_repository);
+            _cheapPaymentGateway = new CheapPaymentGateway();
             _expensivePaymentGateway = new ExpensivePaymentGateway(_repository);
             _premiumPaymentService = new PremiumPaymentService(_repository);
-            _paymentService = new PaymentServiceMock(
+            _paymentService = new PaymentService(
                 _repository, 
                 _mapper,
                 _cheapPaymentGateway,
@@ -42,27 +45,42 @@ namespace CreditCardPaymentService.Api.Test
                 _premiumPaymentService                
             );
             _paymentsController = new PaymentsController(_paymentService);
-        }
 
-        [Test]
-        public void Test1()
-        {
-            Assert.Pass();
-        }
-
-        [Test]
-        public void PaymentServiceProcess()
-        {
-            var requestModel = new PaymentDto {
+            _creditCardPayment = new PaymentDto {
                 CreditCardNumber = "4012888888881881",
                 CardHolder = "Femi Ayodeji",
                 ExpirationDate = Convert.ToDateTime("2021-03"),
                 SecurityCode = "123",
                 Amount = 510.24m
             };
-            var result = _paymentService.ProcessPayment(requestModel);  
+        }
+
+        [Test]
+        public void PaymentServiceProcess()
+        {
+            var result = _paymentService.ProcessPayment(_creditCardPayment);  
 
             Assert.IsInstanceOf<PaymentResponseDto>(result);
+        }
+
+        [Test]
+        public void CheapPayment()
+        {
+            _cheapPaymentGateway = new CheapPaymentGateway();
+            _cheapPaymentGateway.Response = new PaymentGatewayResponse{ Status = "Ok"};
+            _paymentService = new PaymentService(
+                _repository, 
+                _mapper,
+                _cheapPaymentGateway,
+                _expensivePaymentGateway,
+                _premiumPaymentService                
+            );
+
+            _creditCardPayment.Amount = 5;
+
+            var result = _paymentService.ProcessPayment(_creditCardPayment);  
+
+            Assert.AreEqual(PaymentStatusTypes.Processed.ToString(), result.State.Status);
         }
 
     }
