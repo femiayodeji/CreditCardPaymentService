@@ -36,7 +36,8 @@ namespace CreditCardPaymentService.Api.Test
 
             _cheapPaymentGateway = new CheapPaymentGateway();
             _expensivePaymentGateway = new ExpensivePaymentGateway();
-            _premiumPaymentService = new PremiumPaymentService(_repository);
+            _premiumPaymentService = new PremiumPaymentService();
+            _premiumPaymentService.Response = new PaymentGatewayResponse();
             _paymentService = new PaymentService(
                 _repository, 
                 _mapper,
@@ -97,6 +98,26 @@ namespace CreditCardPaymentService.Api.Test
             );
 
             _creditCardPayment.Amount = 25;
+
+            var result = _paymentService.ProcessPayment(_creditCardPayment);  
+
+            Assert.AreEqual(PaymentStatusTypes.Processed.ToString(), result.State.Status);
+        }
+
+        [Test]
+        public void PremiumPayment()
+        {
+            _premiumPaymentService = new PremiumPaymentService();
+            _premiumPaymentService.Response = new PaymentGatewayResponse{ Status = "Ok"};
+            _paymentService = new PaymentService(
+                _repository, 
+                _mapper,
+                _cheapPaymentGateway,
+                _expensivePaymentGateway,
+                _premiumPaymentService                
+            );
+
+            _creditCardPayment.Amount = 600;
 
             var result = _paymentService.ProcessPayment(_creditCardPayment);  
 
