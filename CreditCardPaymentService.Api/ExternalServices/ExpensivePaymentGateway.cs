@@ -7,17 +7,16 @@ namespace CreditCardPaymentService.Api.Services
 {
     public class ExpensivePaymentGateway : IExpensivePaymentGateway
     {
-        private readonly IPaymentRepo _repository;
-        public ExpensivePaymentGateway(IPaymentRepo repository)
-        {
-            _repository = repository;
-        }
-
+        public Payment Request { get; set; }
+        public PaymentGatewayResponse Response { get; set; }
         public PaymentState Charge(Payment payment)
         {
-            var paymentResponse = FakePaymentResponse.RandomizePaymentReponse(payment);
-            _repository.CreatePaymentState(paymentResponse);
-            return paymentResponse;
+            throw new System.NotImplementedException();
         }
-   }
+
+        public PaymentGatewayResponse GetResponse()
+        {
+            return Response;
+        }
+    }
 }
