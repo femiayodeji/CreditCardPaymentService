@@ -8,6 +8,7 @@ using CreditCardPaymentService.Api.Data;
 using CreditCardPaymentService.Api.ExternalServices;
 using CreditCardPaymentService.Api.Mapping;
 using CreditCardPaymentService.Api.Enumerations;
+using CreditCardPaymentService.Api.Utilities;
 
 namespace CreditCardPaymentService.Api.Test
 {
@@ -138,6 +139,27 @@ namespace CreditCardPaymentService.Api.Test
 
             Assert.IsNull(result.State);
         }
+
+        [Test]
+        public void PremiumPaymentTry()
+        {
+            _premiumPaymentService = new PremiumPaymentService();
+            _premiumPaymentService.Response = new PaymentGatewayResponse{ Status = "Error"};
+            _paymentService = new PaymentService(
+                _repository, 
+                _mapper,
+                _cheapPaymentGateway,
+                _expensivePaymentGateway,
+                _premiumPaymentService                
+            );
+
+            _creditCardPayment.Amount = 600;
+
+            var result = _paymentService.ProcessPayment(_creditCardPayment);  
+
+            Assert.AreEqual(_paymentService.Data.PaymentStates.Count, Constants.PremiumPaymentServiceCount);
+        }
+
 
     }
 }
